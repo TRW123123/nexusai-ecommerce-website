@@ -11,8 +11,6 @@
         Created with Perplexity Computer
         https://www.perplexity.ai/computer
 -->
-
-<!-- Perplexity Computer Attribution — SEO Meta Tags -->
 <meta name="generator" content="Perplexity Computer">
 <meta name="author" content="Perplexity Computer">
 <meta property="og:see_also" content="https://www.perplexity.ai/computer">
@@ -20,18 +18,13 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexusAI — E-Ticaret için Yapay Zeka Otomasyonu</title>
-<meta name="description" content="Etsy, Amazon ve Shopify mağazanızı yapay zeka ile otomatikleştirin. PPC optimizasyonu, listing yönetimi, müşteri desteği ve daha fazlası.">
+<title>Private AI Agency — E-Ticaret için Yapay Zeka Otomasyonu</title>
+<meta name="description" content="Etsy, Amazon ve Shopify mağazanızı yapay zeka ile otomatikleştirin. PPC optimizasyonu, listing yönetimi, müşteri desteği.">
 
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- Icons -->
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
-<!-- Three.js -->
 <script type="importmap">
 {
   "imports": {
@@ -40,32 +33,24 @@
 }
 </script>
 
-<!-- GSAP -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════
-     NAVIGATION
-═══════════════════════════════════════════ -->
+<!-- NAV -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="logo" aria-label="NexusAI Ana Sayfa">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36" aria-hidden="true">
-        <circle cx="20" cy="20" r="18" stroke="url(#logoGrad)" stroke-width="2"/>
-        <path d="M12 20 L20 12 L28 20 L20 28 Z" fill="url(#logoGrad)" opacity="0.8"/>
-        <circle cx="20" cy="20" r="4" fill="url(#logoGrad)"/>
-        <defs>
-          <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#6366f1"/>
-            <stop offset="100%" stop-color="#06b6d4"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <span class="logo-text">NexusAI</span>
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 36 36" fill="none" width="36" height="36">
+          <path d="M18 3 L33 12 L33 24 L18 33 L3 24 L3 12 Z" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <path d="M18 8 L28 14 L28 22 L18 28 L8 22 L8 14 Z" fill="currentColor" opacity="0.15"/>
+          <circle cx="18" cy="18" r="4" fill="currentColor"/>
+        </svg>
+      </div>
+      <span>Private AI Agency</span>
     </a>
 
     <ul class="nav-links" role="list">
@@ -75,209 +60,123 @@
       <li><a href="#iletisim">İletişim</a></li>
     </ul>
 
-    <div class="nav-actions">
-      <button class="btn-ghost" data-theme-toggle aria-label="Tema değiştir">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-      <a href="#iletisim" class="btn-primary">Ücretsiz Demo</a>
-    </div>
-
-    <button class="nav-burger" id="navBurger" aria-label="Menü">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#iletisim" class="nav-cta">Ücretsiz Analiz</a>
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════════════
-     HERO — 3D Partikel Sahne
-═══════════════════════════════════════════ -->
+<!-- HERO -->
 <section class="hero" id="hero">
-  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <!-- 3D Canvas — büyük, merkezi -->
+  <div class="hero-3d-wrap">
+    <canvas id="heroCanvas"></canvas>
+  </div>
+
+  <!-- Overlay gradient -->
+  <div class="hero-vignette" aria-hidden="true"></div>
 
   <div class="hero-content">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      <span>AI ile çalışıyor — Şu an aktif</span>
-    </div>
-
+    <p class="hero-eyebrow">E-Ticaret Yapay Zeka Ajansı</p>
     <h1 class="hero-title">
-      <span class="line-1">E-Ticarette</span>
-      <span class="line-2 gradient-text">Yapay Zeka</span>
-      <span class="line-3">Devrimine Hazır mısın?</span>
+      Mağazanı<br>
+      <em>Uyurken</em> Kazandır
     </h1>
-
     <p class="hero-sub">
-      Etsy, Amazon ve Shopify mağazanı <strong>manuel değil, otonom</strong> yönet.<br>
-      PPC israfını durdur, satışları patlat — insan müdahalesi olmadan.
+      Etsy, Amazon ve Shopify için tamamen otomatik yapay zeka sistemleri kuruyoruz.
+      Sen işine odaklan, AI gerisini halleder.
     </p>
-
-    <div class="hero-cta">
-      <a href="#demo" class="btn-primary btn-lg">
-        <i data-lucide="zap" width="20" height="20"></i>
-        Ücretsiz Demo Talep Et
-      </a>
-      <a href="#hizmetler" class="btn-ghost btn-lg">
-        Nasıl Çalışır?
-        <i data-lucide="arrow-right" width="18" height="18"></i>
+    <div class="hero-actions">
+      <a href="#iletisim" class="btn-primary">Ücretsiz Demo Talep Et</a>
+      <a href="#demo" class="btn-text">
+        Nasıl çalışır?
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </a>
     </div>
 
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num" data-target="127">0</span><span class="stat-suffix">%</span>
-        <span class="stat-label">ROAS Artışı</span>
+    <div class="hero-proof">
+      <div class="proof-item">
+        <strong class="count-hero" data-target="340">0</strong><span>%</span>
+        <small>Ortalama ROI Artışı</small>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <span class="stat-num" data-target="47">0</span><span class="stat-suffix">K€</span>
-        <span class="stat-label">Kurtarılan PPC Bütçesi</span>
+      <div class="proof-sep"></div>
+      <div class="proof-item">
+        <strong class="count-hero" data-target="47">0</strong><span>K€</span>
+        <small>Kurtarılan PPC</small>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <span class="stat-num" data-target="3">0</span><span class="stat-suffix">dk</span>
-        <span class="stat-label">Kurulum Süresi</span>
+      <div class="proof-sep"></div>
+      <div class="proof-item">
+        <strong class="count-hero" data-target="3">0</strong><span>dk</span>
+        <small>Kurulum</small>
       </div>
     </div>
   </div>
 
-  <div class="hero-scroll" aria-hidden="true">
+  <div class="scroll-hint" aria-hidden="true">
     <div class="scroll-line"></div>
-    <span>Kaydır</span>
+    <span>Keşfet</span>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     WOW EFFECT 1 — Canlı AI Terminal
-═══════════════════════════════════════════ -->
-<section class="section terminal-section" id="demo">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-tag">Canlı Demo</div>
-      <h2>AI'ın Çalışmasını <span class="gradient-text">İzle</span></h2>
-      <p>Sistemimiz şu anda gerçek bir Etsy mağazasını analiz ediyor. Bu, tam da müşterilerimizin her gün gördüğü şey.</p>
-    </div>
-
-    <div class="terminal-wrapper">
-      <div class="terminal-bar">
-        <div class="terminal-dots">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
-        </div>
-        <span class="terminal-title">nexus-ai — etsy-analyzer v2.4.1</span>
-        <div class="terminal-status">
-          <span class="live-dot"></span>
-          <span>CANLI</span>
-        </div>
-      </div>
-      <div class="terminal-body" id="terminalBody" aria-live="polite">
-        <div class="term-line"><span class="prompt">$</span> <span class="cmd">nexus analyze --shop "vintage-atelier" --mode full</span></div>
-      </div>
-    </div>
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <div class="strip-inner">
+    <span>Etsy Satıcıları</span>
+    <div class="strip-dot"></div>
+    <span>Amazon FBA</span>
+    <div class="strip-dot"></div>
+    <span>Shopify Mağazaları</span>
+    <div class="strip-dot"></div>
+    <span>PPC Optimizasyonu</span>
+    <div class="strip-dot"></div>
+    <span>Listing Yönetimi</span>
+    <div class="strip-dot"></div>
+    <span>Müşteri Otomasyonu</span>
+    <div class="strip-dot"></div>
+    <span>Review Yönetimi</span>
+    <div class="strip-dot"></div>
+    <span>WhatsApp Bot</span>
+    <div class="strip-dot"></div>
   </div>
-</section>
+</div>
 
-<!-- ═══════════════════════════════════════════
-     WOW EFFECT 2 — Bento Stats Glassmorphism
-═══════════════════════════════════════════ -->
-<section class="section bento-section" id="hizmetler">
-  <div class="bento-bg-glow" aria-hidden="true"></div>
+<!-- DEMO — Canlı Terminal -->
+<section class="section" id="demo">
   <div class="container">
-    <div class="section-header">
-      <div class="section-tag">Sonuçlar</div>
-      <h2>Rakamlar <span class="gradient-text">Konuşuyor</span></h2>
-      <p>Gerçek mağazalardan gerçek veriler. AI'ın farkını bizzat gör.</p>
-    </div>
-
-    <div class="bento-grid">
-      <!-- Büyük kart -->
-      <div class="bento-card bento-large gsap-reveal">
-        <div class="bento-icon-wrap">
-          <i data-lucide="trending-up" width="28" height="28"></i>
-        </div>
-        <div class="bento-big-num">
-          <span class="count-up" data-target="340">0</span><span>%</span>
-        </div>
-        <h3>Ortalama ROI Artışı</h3>
-        <p>İlk 30 gün içinde gerçekleşti. PPC Waste Detector + Keyword Gap Finder kombinasyonu.</p>
-        <div class="bento-tag success">Amazon Müşterisi</div>
+    <div class="two-col">
+      <div class="col-text reveal">
+        <p class="section-label">Canlı Demo</p>
+        <h2>AI'ın Gerçek<br>Bir Analiz Yapmasını İzle</h2>
+        <p>Sistemimiz şu anda gerçek bir Etsy mağazasını analiz ediyor. Müşterilerimiz her sabah buna benzer raporlar görüyor — tek satır kod yazmadan.</p>
+        <ul class="feature-list">
+          <li>
+            <div class="feat-dot"></div>
+            <span>PPC bütçe israfı tespiti ve negatif keyword optimizasyonu</span>
+          </li>
+          <li>
+            <div class="feat-dot"></div>
+            <span>Rakip keyword açıkları ve fırsat analizi</span>
+          </li>
+          <li>
+            <div class="feat-dot"></div>
+            <span>SEO skor iyileştirme ve listing optimizasyonu</span>
+          </li>
+          <li>
+            <div class="feat-dot"></div>
+            <span>Review takibi ve otomatik yanıt sistemleri</span>
+          </li>
+        </ul>
       </div>
 
-      <!-- Orta kart -->
-      <div class="bento-card bento-medium gsap-reveal" data-delay="0.1">
-        <div class="bento-icon-wrap">
-          <i data-lucide="shield-check" width="24" height="24"></i>
-        </div>
-        <div class="bento-big-num small">
-          <span class="count-up" data-target="99">0</span><span>%</span>
-        </div>
-        <h3>Buy Box Koruması</h3>
-        <p>Anlık SMS uyarısı ile Buy Box kayıplarını sıfırladık.</p>
-        <div class="bento-tag warning">Amazon FBA</div>
-      </div>
-
-      <!-- Küçük kart -->
-      <div class="bento-card bento-small gsap-reveal" data-delay="0.2">
-        <div class="bento-icon-wrap">
-          <i data-lucide="clock" width="24" height="24"></i>
-        </div>
-        <div class="bento-big-num small">
-          <span class="count-up" data-target="47">0</span><span>saat</span>
-        </div>
-        <h3>Haftalık Tasarruf</h3>
-        <p>Manuel iş saatlerinin otomasyonu</p>
-        <div class="bento-tag info">Etsy Satıcısı</div>
-      </div>
-
-      <!-- Küçük kart -->
-      <div class="bento-card bento-small gsap-reveal" data-delay="0.3">
-        <div class="bento-icon-wrap">
-          <i data-lucide="message-circle" width="24" height="24"></i>
-        </div>
-        <div class="bento-big-num small">
-          <span class="count-up" data-target="60">0</span><span>%</span>
-        </div>
-        <h3>Destek Yükü Azaldı</h3>
-        <p>WhatsApp + AI chatbot entegrasyonu</p>
-        <div class="bento-tag info">Shopify</div>
-      </div>
-
-      <!-- Orta kart -->
-      <div class="bento-card bento-medium gsap-reveal" data-delay="0.15">
-        <div class="bento-icon-wrap">
-          <i data-lucide="zap" width="24" height="24"></i>
-        </div>
-        <div class="bento-big-num small">
-          <span class="count-up" data-target="8">0</span><span>dk</span>
-        </div>
-        <h3>Negative Review Yanıt Süresi</h3>
-        <p>AI tüm negative review'lara ortalama 8 dakikada yanıt hazırladı. Öncesi: 2 gün.</p>
-        <div class="bento-tag warning">Amazon</div>
-      </div>
-
-      <!-- Büyük horizontal kart -->
-      <div class="bento-card bento-wide gsap-reveal" data-delay="0.2">
-        <div class="bento-wide-content">
-          <div>
-            <div class="bento-icon-wrap">
-              <i data-lucide="bar-chart-3" width="24" height="24"></i>
+      <div class="col-terminal reveal" data-delay="0.15">
+        <div class="terminal">
+          <div class="term-bar">
+            <div class="term-dots">
+              <span></span><span></span><span></span>
             </div>
-            <h3>PPC Bütçe İsrafı Tespiti</h3>
-            <p>Ortalama bir Amazon satıcısı reklam bütçesinin <strong>31%'ini</strong> dönüşüm getirmeyen keywordlere harcıyor. Biz bunu tespit eder, durdururuz.</p>
+            <span class="term-name">private-ai — etsy-analyzer v2.4</span>
+            <div class="term-live"><span></span>CANLI</div>
           </div>
-          <div class="bento-wide-visual" aria-hidden="true">
-            <div class="waste-bar">
-              <div class="waste-before">
-                <span>Önce</span>
-                <div class="bar-track"><div class="bar-fill red-bar" style="--w:69%"></div></div>
-                <span class="bar-label">%69 Verimli</span>
-              </div>
-              <div class="waste-after">
-                <span>Sonra</span>
-                <div class="bar-track"><div class="bar-fill green-bar" style="--w:96%"></div></div>
-                <span class="bar-label">%96 Verimli</span>
-              </div>
-            </div>
+          <div class="term-body" id="termBody" aria-live="polite">
+            <div class="tl"><span class="tp">$</span> <span class="tc">analyze --shop "vintage-atelier" --full</span></div>
           </div>
         </div>
       </div>
@@ -285,310 +184,233 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     WOW EFFECT 3 — Platform Tabs mit 3D Card Flip
-═══════════════════════════════════════════ -->
-<section class="section platforms-section" id="platformlar">
+<!-- PLATFORM TABS -->
+<section class="section section-alt" id="platformlar">
   <div class="container">
-    <div class="section-header">
-      <div class="section-tag">Platformlar</div>
-      <h2>Hangi Platformu <span class="gradient-text">Kullanıyorsun?</span></h2>
-      <p>Etsy, Amazon veya Shopify — hepsini için özel AI çözümleri geliştirdik.</p>
+    <div class="section-head reveal">
+      <p class="section-label">Çözümlerimiz</p>
+      <h2>Hangi Platformdasın?</h2>
+      <p>Etsy, Amazon veya Shopify — her platform için özel geliştirdiğimiz AI çözümleri.</p>
     </div>
 
-    <div class="platform-tabs" role="tablist" aria-label="Platform seçimi">
-      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-etsy" data-tab="etsy">
-        <i data-lucide="shopping-bag" width="18" height="18"></i> Etsy
-      </button>
-      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-amazon" data-tab="amazon">
-        <i data-lucide="package" width="18" height="18"></i> Amazon
-      </button>
-      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-shopify" data-tab="shopify">
-        <i data-lucide="store" width="18" height="18"></i> Shopify
-      </button>
+    <div class="tab-row" role="tablist">
+      <button class="tab active" data-tab="etsy" role="tab" aria-selected="true" aria-controls="panel-etsy">Etsy</button>
+      <button class="tab" data-tab="amazon" role="tab" aria-selected="false" aria-controls="panel-amazon">Amazon</button>
+      <button class="tab" data-tab="shopify" role="tab" aria-selected="false" aria-controls="panel-shopify">Shopify</button>
     </div>
 
     <!-- ETSY -->
-    <div class="tab-content active" id="tab-etsy" role="tabpanel">
-      <div class="services-grid">
-        <div class="service-card" data-score="75">
-          <div class="score-badge">Puan: 75</div>
-          <div class="service-icon"><i data-lucide="target" width="22" height="22"></i></div>
+    <div class="tab-panel active" id="panel-etsy" role="tabpanel">
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-score">75</div>
           <h4>Etsy Ad Optimizer AI</h4>
-          <p>PPC kampanyalarını otomatik optimize eder, zarar eden reklamları durdurur, ROI'yi artırır.</p>
-          <div class="service-impact">
-            <i data-lucide="trending-up" width="14" height="14"></i>
-            Pazarlama / ROI Artışı
-          </div>
+          <p>PPC kampanyalarını otomatik optimize eder, zarar eden reklamları durdurur.</p>
+          <span class="card-tag">Pazarlama & ROI</span>
         </div>
-        <div class="service-card" data-score="65">
-          <div class="score-badge">Puan: 65</div>
-          <div class="service-icon"><i data-lucide="search" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">65</div>
           <h4>AI Listing Generator</h4>
-          <p>Ürün başlığı, açıklama ve tag'leri AI ile otomatik üretir, Etsy SEO'ya tam optimize eder.</p>
-          <div class="service-impact">
-            <i data-lucide="clock" width="14" height="14"></i>
-            Operasyonel Tasarruf
-          </div>
+          <p>Başlık, açıklama ve tag'leri AI ile üretir. Etsy SEO'ya tam optimize eder.</p>
+          <span class="card-tag">Operasyonel Tasarruf</span>
         </div>
-        <div class="service-card" data-score="65">
-          <div class="score-badge">Puan: 65</div>
-          <div class="service-icon"><i data-lucide="image" width="22" height="22"></i></div>
+        <div class="card hot">
+          <div class="card-score hot">65</div>
           <h4>Auto Image Generator</h4>
           <p>AI ile ürün görselleri ve mockup üretir. Tıklanmayan thumbnail'ları dönüştürür.</p>
-          <div class="service-impact">
-            <i data-lucide="zap" width="14" height="14"></i>
-            Dönüşüm Artışı
-          </div>
+          <span class="card-tag">Dönüşüm</span>
         </div>
-        <div class="service-card" data-score="55">
-          <div class="score-badge">Puan: 55</div>
-          <div class="service-icon"><i data-lucide="message-square" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">55</div>
           <h4>Customer Support AI</h4>
-          <p>Müşteri mesajlarını analiz eder, otomatik cevap üretir. Geç cevaptan kaynaklanan satış kaybını önler.</p>
-          <div class="service-impact">
-            <i data-lucide="shield" width="14" height="14"></i>
-            Satış Koruması
-          </div>
+          <p>Mesajları analiz eder, otomatik cevap üretir. Geç yanıttan kaynaklanan satış kaybını önler.</p>
+          <span class="card-tag">Müşteri Deneyimi</span>
         </div>
-        <div class="service-card" data-score="55">
-          <div class="score-badge">Puan: 55</div>
-          <div class="service-icon"><i data-lucide="star" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">55</div>
           <h4>Review Hatırlatma Otomasyonu</h4>
-          <p>Teslimden X gün sonra otomatik review talep mesajı. Sosyal kanıtı otomatik inşa eder.</p>
-          <div class="service-impact">
-            <i data-lucide="trending-up" width="14" height="14"></i>
-            Marka İtibarı
-          </div>
+          <p>Teslimden sonra otomatik review talep mesajı. Sosyal kanıtı inşa eder.</p>
+          <span class="card-tag">Marka İtibarı</span>
         </div>
-        <div class="service-card" data-score="55">
-          <div class="score-badge">Puan: 55</div>
-          <div class="service-icon"><i data-lucide="bar-chart" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">55</div>
           <h4>AI Trend Explorer</h4>
-          <p>AI ile günlük ve haftalık trend ürünleri analiz eder. Hangi ürünlerin öne çıkacağını tahmin eder.</p>
-          <div class="service-impact">
-            <i data-lucide="compass" width="14" height="14"></i>
-            Stratejik Büyüme
-          </div>
+          <p>Günlük ve haftalık trend ürünleri analiz eder. Hangi ürünlerin öne çıkacağını tahmin eder.</p>
+          <span class="card-tag">Strateji</span>
         </div>
       </div>
     </div>
 
     <!-- AMAZON -->
-    <div class="tab-content" id="tab-amazon" role="tabpanel" hidden>
-      <div class="services-grid">
-        <div class="service-card highlight" data-score="100">
-          <div class="score-badge hot">Puan: 100 🔥</div>
-          <div class="service-icon"><i data-lucide="alert-triangle" width="22" height="22"></i></div>
+    <div class="tab-panel" id="panel-amazon" role="tabpanel" hidden>
+      <div class="cards-grid">
+        <div class="card hot">
+          <div class="card-score hot">100 🔥</div>
           <h4>Buy Box Suppression Detector</h4>
           <p>Buy Box kaybolduğu anda anlık SMS uyarısı. Amazon satıcısının en kritik kalkanı.</p>
-          <div class="service-impact">
-            <i data-lucide="zap" width="14" height="14"></i>
-            Kriz / Para Koruması
-          </div>
+          <span class="card-tag">Kriz Koruması</span>
         </div>
-        <div class="service-card highlight" data-score="99">
-          <div class="score-badge hot">Puan: 99 🔥</div>
-          <div class="service-icon"><i data-lucide="dollar-sign" width="22" height="22"></i></div>
+        <div class="card hot">
+          <div class="card-score hot">99 🔥</div>
           <h4>PPC Waste Detector</h4>
-          <p>Boşa harcanan keywordleri tespit eder. Her dolarınızın hesabını sorar, kârlılığa en hızlı etki eden sistem.</p>
-          <div class="service-impact">
-            <i data-lucide="trending-up" width="14" height="14"></i>
-            Doğrudan Gelir Artışı
-          </div>
+          <p>Boşa harcanan keywordleri tespit eder. Her doların hesabını sorar.</p>
+          <span class="card-tag">Doğrudan Gelir</span>
         </div>
-        <div class="service-card highlight" data-score="99">
-          <div class="score-badge hot">Puan: 99 🔥</div>
-          <div class="service-icon"><i data-lucide="star" width="22" height="22"></i></div>
+        <div class="card hot">
+          <div class="card-score hot">99 🔥</div>
           <h4>Negatif Review Yönetimi</h4>
-          <p>Yeni review'ları sürekli tarar, düşük yıldız gelince anında bildirim. Markanın 1 numaralı kalkanı.</p>
-          <div class="service-impact">
-            <i data-lucide="shield-check" width="14" height="14"></i>
-            Hayat Kurtarıcı
-          </div>
+          <p>Düşük yıldız gelince anında bildirim. Markanın 1 numaralı kalkanı.</p>
+          <span class="card-tag">Hayat Kurtarıcı</span>
         </div>
-        <div class="service-card" data-score="98">
-          <div class="score-badge">Puan: 98</div>
-          <div class="service-icon"><i data-lucide="key" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">98</div>
           <h4>Keyword Opportunity Gap Finder</h4>
           <p>Rakibin unuttuğu ama insanların deli gibi arattığı "sessiz" kelimeleri bulur.</p>
-          <div class="service-impact">
-            <i data-lucide="search" width="14" height="14"></i>
-            Bedava Organik Hit
-          </div>
+          <span class="card-tag">Bedava Organik Hit</span>
         </div>
-        <div class="service-card" data-score="97">
-          <div class="score-badge">Puan: 97</div>
-          <div class="service-icon"><i data-lucide="package-x" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">97</div>
           <h4>Refund Sebep Analiz Botu</h4>
-          <p>İade verisini analiz edip problem çıkarır. İadelerin %60'ı aynı hatadan mı geliyor? Anında bilirsiniz.</p>
-          <div class="service-impact">
-            <i data-lucide="wrench" width="14" height="14"></i>
-            Kalite Kurtarıcı
-          </div>
+          <p>İadelerin %60'ı aynı hatadan mı? AI bunu anında bulur ve çözer.</p>
+          <span class="card-tag">Kalite</span>
         </div>
-        <div class="service-card" data-score="95">
-          <div class="score-badge">Puan: 95</div>
-          <div class="service-icon"><i data-lucide="boxes" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">95</div>
           <h4>Stock Risk Analyzer</h4>
-          <p>Stok azalınca reklamları yavaşlatıp sipariş alarmı verir. Stok tükenmesi = algoritma ölümü.</p>
-          <div class="service-impact">
-            <i data-lucide="trending-up" width="14" height="14"></i>
-            Operasyon / Kârlılık
-          </div>
+          <p>Stok azalınca reklamları yavaşlatıp sipariş alarmı verir.</p>
+          <span class="card-tag">Operasyon</span>
         </div>
       </div>
     </div>
 
     <!-- SHOPIFY -->
-    <div class="tab-content" id="tab-shopify" role="tabpanel" hidden>
-      <div class="services-grid">
-        <div class="service-card highlight" data-score="100">
-          <div class="score-badge hot">Puan: 100 🔥</div>
-          <div class="service-icon"><i data-lucide="instagram" width="22" height="22"></i></div>
+    <div class="tab-panel" id="panel-shopify" role="tabpanel" hidden>
+      <div class="cards-grid">
+        <div class="card hot">
+          <div class="card-score hot">100 🔥</div>
           <h4>Instagram DM AI</h4>
-          <p>Yoruma "Fiyat" yazana DM'den doğrudan satın alma linki. ManyChat ile dönüşümü patlatır.</p>
-          <div class="service-impact">
-            <i data-lucide="zap" width="14" height="14"></i>
-            Satış Patlaması
-          </div>
+          <p>Yoruma "Fiyat" yazana DM'den satın alma linki. ManyChat entegrasyonu.</p>
+          <span class="card-tag">Satış Patlaması</span>
         </div>
-        <div class="service-card highlight" data-score="99">
-          <div class="score-badge hot">Puan: 99 🔥</div>
-          <div class="service-icon"><i data-lucide="shopping-cart" width="22" height="22"></i></div>
+        <div class="card hot">
+          <div class="card-score hot">99 🔥</div>
           <h4>Abandoned Cart Recovery</h4>
-          <p>Sepeti terk edene WhatsApp üzerinden otomatik mesaj. Klasik email'den 3x daha etkili.</p>
-          <div class="service-impact">
-            <i data-lucide="trending-up" width="14" height="14"></i>
-            Kayıp Satış Kurtarma
-          </div>
+          <p>Sepeti terk edene WhatsApp mesajı. Klasik emailden 3x daha etkili.</p>
+          <span class="card-tag">Kayıp Satış</span>
         </div>
-        <div class="service-card" data-score="98">
-          <div class="score-badge">Puan: 98</div>
-          <div class="service-icon"><i data-lucide="mail" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">98</div>
           <h4>Email Marketing Otomasyonu</h4>
-          <p>Sepet terk, hoşgeldin, upsell akışları. Doğru kurgulanmış mail funnel geliri %15 otomatik artırır.</p>
-          <div class="service-impact">
-            <i data-lucide="bar-chart" width="14" height="14"></i>
-            Gelir Artışı
-          </div>
+          <p>Sepet terk, hoşgeldin, upsell akışları. Klaviyo veya n8n entegrasyonu.</p>
+          <span class="card-tag">Gelir Artışı</span>
         </div>
-        <div class="service-card" data-score="98">
-          <div class="score-badge">Puan: 98</div>
-          <div class="service-icon"><i data-lucide="message-circle" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">98</div>
           <h4>WhatsApp Support Bot</h4>
-          <p>Resmi WhatsApp API ile müşteri desteğini cebe taşır. Sepetteyken sorulan soruyu anında yanıtlar.</p>
-          <div class="service-impact">
-            <i data-lucide="users" width="14" height="14"></i>
-            Müşteri Deneyimi
-          </div>
+          <p>Resmi WhatsApp API ile müşteri desteğini cebe taşır.</p>
+          <span class="card-tag">Müşteri Deneyimi</span>
         </div>
-        <div class="service-card" data-score="96">
-          <div class="score-badge">Puan: 96</div>
-          <div class="service-icon"><i data-lucide="truck" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">96</div>
           <h4>Order Tracking AI Bot</h4>
           <p>"Siparişim nerede?" sorularını kargo API ile anında yanıtlar. Destek yükünü %60 azaltır.</p>
-          <div class="service-impact">
-            <i data-lucide="clock" width="14" height="14"></i>
-            Operasyonel Tasarruf
-          </div>
+          <span class="card-tag">Tasarruf</span>
         </div>
-        <div class="service-card" data-score="95">
-          <div class="score-badge">Puan: 95</div>
-          <div class="service-icon"><i data-lucide="heart" width="22" height="22"></i></div>
+        <div class="card">
+          <div class="card-score">95</div>
           <h4>VIP Customer Detector</h4>
-          <p>Çok harcayan %5'lik VIP kitleyi tespit eder, onlara özel lansman erişimi gönderir.</p>
-          <div class="service-impact">
-            <i data-lucide="crown" width="14" height="14"></i>
-            Müşteri Sadakati
-          </div>
+          <p>En çok harcayan %5'lik kitleyi tespit eder, özel lansman erişimi gönderir.</p>
+          <span class="card-tag">Sadakat</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     CTA SECTION
-═══════════════════════════════════════════ -->
-<section class="section cta-section" id="iletisim">
-  <div class="cta-bg-canvas" id="ctaCanvas" aria-hidden="true"></div>
+<!-- STATS SECTION -->
+<section class="section" id="hizmetler">
   <div class="container">
-    <div class="cta-inner">
-      <div class="cta-badge">
-        <span class="badge-dot"></span>
-        <span>Şu an 3 müşteri onboarding'de</span>
+    <div class="section-head reveal">
+      <p class="section-label">Sonuçlar</p>
+      <h2>Rakamlar Konuşuyor</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-block reveal">
+        <div class="stat-num"><span class="count-up" data-target="340">0</span>%</div>
+        <div class="stat-label">Ortalama ROI Artışı</div>
+        <p>İlk 30 gün içinde PPC Waste Detector + Keyword Gap Finder kombinasyonuyla.</p>
       </div>
-      <h2>Manuel Çalışmayı <span class="gradient-text">Bırak.</span></h2>
-      <p>İlk analizi ücretsiz yap. Hangi otomasyonların sana en hızlı para kazandıracağını göster.</p>
+      <div class="stat-block reveal" data-delay="0.1">
+        <div class="stat-num"><span class="count-up" data-target="47">0</span>K€</div>
+        <div class="stat-label">Kurtarılan PPC Bütçesi</div>
+        <p>Tek bir Amazon müşterisinde tespit edilen aylık boşa harcama.</p>
+      </div>
+      <div class="stat-block reveal" data-delay="0.2">
+        <div class="stat-num"><span class="count-up" data-target="60">0</span>%</div>
+        <div class="stat-label">Destek Yükü Azaldı</div>
+        <p>WhatsApp + AI chatbot entegrasyonu sonrası manuel destek ihtiyacı.</p>
+      </div>
+      <div class="stat-block reveal" data-delay="0.3">
+        <div class="stat-num"><span class="count-up" data-target="8">0</span>dk</div>
+        <div class="stat-label">Review Yanıt Süresi</div>
+        <p>Negatif review'lara AI ortalama 8 dakikada yanıt hazırladı. Öncesi: 2 gün.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section" id="iletisim">
+  <div class="container">
+    <div class="cta-wrap reveal">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <p class="section-label">Başlayalım</p>
+      <h2>İlk Analizin Ücretsiz</h2>
+      <p>Mağazanın nerede para kaybettiğini göster. 24 saat içinde dönüş yapıyoruz.</p>
 
       <form class="cta-form" id="ctaForm" novalidate>
         <div class="form-row">
-          <div class="form-group">
-            <label for="nameInput" class="sr-only">Adın</label>
-            <input type="text" id="nameInput" placeholder="Adın Soyadın" autocomplete="name" required>
-          </div>
-          <div class="form-group">
-            <label for="emailInput" class="sr-only">E-posta</label>
-            <input type="email" id="emailInput" placeholder="E-posta adresin" autocomplete="email" required>
-          </div>
+          <input type="text" placeholder="Adın Soyadın" id="nameInput" required autocomplete="name">
+          <input type="email" placeholder="E-posta adresin" id="emailInput" required autocomplete="email">
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label for="platformSelect" class="sr-only">Platform</label>
-            <select id="platformSelect" required>
-              <option value="" disabled selected>Platform seç</option>
-              <option value="etsy">Etsy</option>
-              <option value="amazon">Amazon</option>
-              <option value="shopify">Shopify</option>
-              <option value="multi">Birden fazla platform</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="budgetSelect" class="sr-only">Aylık reklam bütçesi</label>
-            <select id="budgetSelect">
-              <option value="" disabled selected>Aylık reklam bütçesi</option>
-              <option value="lt1k">€1.000'den az</option>
-              <option value="1k5k">€1.000 – €5.000</option>
-              <option value="5k20k">€5.000 – €20.000</option>
-              <option value="gt20k">€20.000+</option>
-            </select>
-          </div>
+          <select id="platformSel" required>
+            <option value="" disabled selected>Platform seç</option>
+            <option>Etsy</option>
+            <option>Amazon</option>
+            <option>Shopify</option>
+            <option>Birden fazla</option>
+          </select>
+          <select id="budgetSel">
+            <option value="" disabled selected>Aylık reklam bütçesi</option>
+            <option>€1.000'den az</option>
+            <option>€1.000 – €5.000</option>
+            <option>€5.000 – €20.000</option>
+            <option>€20.000+</option>
+          </select>
         </div>
-        <button type="submit" class="btn-primary btn-xl btn-full">
-          <i data-lucide="send" width="18" height="18"></i>
-          Ücretsiz Analiz İste
-        </button>
-        <p class="form-note">Spam yok. 24 saat içinde dönüş. Kredi kartı gerekmez.</p>
+        <button type="submit" class="btn-primary btn-full">Ücretsiz Analiz İste</button>
+        <p class="form-note">Spam yok · Kredi kartı gerekmez · 24 saat içinde yanıt</p>
       </form>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     FOOTER
-═══════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="#" class="logo" aria-label="NexusAI Ana Sayfa">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true">
-            <circle cx="20" cy="20" r="18" stroke="url(#logoGrad2)" stroke-width="2"/>
-            <path d="M12 20 L20 12 L28 20 L20 28 Z" fill="url(#logoGrad2)" opacity="0.8"/>
-            <circle cx="20" cy="20" r="4" fill="url(#logoGrad2)"/>
-            <defs>
-              <linearGradient id="logoGrad2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#6366f1"/>
-                <stop offset="100%" stop-color="#06b6d4"/>
-              </linearGradient>
-            </defs>
+      <a href="#" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 36 36" fill="none" width="28" height="28">
+            <path d="M18 3 L33 12 L33 24 L18 33 L3 24 L3 12 Z" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <path d="M18 8 L28 14 L28 22 L18 28 L8 22 L8 14 Z" fill="currentColor" opacity="0.15"/>
+            <circle cx="18" cy="18" r="4" fill="currentColor"/>
           </svg>
-          <span class="logo-text">NexusAI</span>
-        </a>
-        <p>E-Ticaret için yapay zeka otomasyonu. Etsy, Amazon, Shopify.</p>
-      </div>
-      <nav class="footer-links" aria-label="Footer navigasyon">
+        </div>
+        <span>Private AI Agency</span>
+      </a>
+      <nav class="footer-links">
         <a href="#hizmetler">Hizmetler</a>
         <a href="#platformlar">Platformlar</a>
         <a href="#demo">Demo</a>
@@ -596,15 +418,12 @@
       </nav>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 NexusAI. Tüm hakları saklıdır.</p>
-      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" class="pplx-credit">
-        Created with Perplexity Computer
-      </a>
+      <p>© 2026 Private AI Agency. Tüm hakları saklıdır.</p>
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
     </div>
   </div>
 </footer>
 
 <script type="module" src="main.js"></script>
-<script>lucide.createIcons();</script>
 </body>
 </html>

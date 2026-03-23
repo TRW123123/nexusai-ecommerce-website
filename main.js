@@ -1,402 +1,319 @@
 import * as THREE from 'three';
 
 /* ══════════════════════════════════════════
-   NAV — scroll behavior
+   NAV SCROLL
 ══════════════════════════════════════════ */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
+  nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
 /* ══════════════════════════════════════════
-   DARK MODE TOGGLE
+   3D HERO — Glowing Sphere + Orbit Rings
+   Große zentrale 3D Animation
 ══════════════════════════════════════════ */
-const html = document.documentElement;
-const themeBtn = document.querySelector('[data-theme-toggle]');
-let currentTheme = 'dark';
-if (themeBtn) {
-  themeBtn.addEventListener('click', () => {
-    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', currentTheme);
-    themeBtn.innerHTML = currentTheme === 'dark'
-      ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`
-      : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-  });
-}
+const canvas = document.getElementById('heroCanvas');
+if (canvas) {
+  const W = () => window.innerWidth;
+  const H = () => window.innerHeight;
 
-/* ══════════════════════════════════════════
-   THREE.JS — HERO PARTICLE NETWORK
-══════════════════════════════════════════ */
-const heroCanvas = document.getElementById('heroCanvas');
-if (heroCanvas) {
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 60;
+  scene.fog = new THREE.Fog(0x1a1612, 40, 120);
 
-  const renderer = new THREE.WebGLRenderer({ canvas: heroCanvas, antialias: true, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  const camera = new THREE.PerspectiveCamera(55, W() / H(), 0.1, 200);
+  camera.position.set(0, 0, 42);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(W(), H());
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer.setClearColor(0x000000, 0);
+  renderer.setClearColor(0x1a1612, 1);
 
-  // Particle positions
-  const COUNT = 180;
-  const positions = new Float32Array(COUNT * 3);
-  const velocities = [];
-  for (let i = 0; i < COUNT; i++) {
-    const x = (Math.random() - 0.5) * 140;
-    const y = (Math.random() - 0.5) * 100;
-    const z = (Math.random() - 0.5) * 60;
-    positions[i * 3]     = x;
-    positions[i * 3 + 1] = y;
-    positions[i * 3 + 2] = z;
-    velocities.push({
-      x: (Math.random() - 0.5) * 0.04,
-      y: (Math.random() - 0.5) * 0.04,
-      z: (Math.random() - 0.5) * 0.02,
-    });
+  // ── Ambient + directional lights ──
+  scene.add(new THREE.AmbientLight(0x3a2a18, 2));
+
+  const light1 = new THREE.PointLight(0xc4703a, 80, 60); // cognac
+  light1.position.set(10, 10, 15);
+  scene.add(light1);
+
+  const light2 = new THREE.PointLight(0xd4a547, 40, 50); // gold
+  light2.position.set(-15, -8, 10);
+  scene.add(light2);
+
+  const light3 = new THREE.PointLight(0x8b5e3c, 30, 40); // bronze back
+  light3.position.set(0, 0, -20);
+  scene.add(light3);
+
+  // ── Central sphere ──
+  const sphereGeo = new THREE.SphereGeometry(7, 64, 64);
+  const sphereMat = new THREE.MeshStandardMaterial({
+    color: 0x2a1f14,
+    roughness: 0.3,
+    metalness: 0.9,
+    emissive: 0x3d1f08,
+    emissiveIntensity: 0.3,
+  });
+  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+  scene.add(sphere);
+
+  // ── Wireframe overlay on sphere ──
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0xc4703a,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.08,
+  });
+  const wireGeo = new THREE.SphereGeometry(7.05, 24, 24);
+  const wire = new THREE.Mesh(wireGeo, wireMat);
+  scene.add(wire);
+
+  // ── Orbit ring helper ──
+  function makeRing(radius, tube, rot, color, opacity) {
+    const geo = new THREE.TorusGeometry(radius, tube, 8, 120);
+    const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.rotation.x = rot.x || 0;
+    mesh.rotation.y = rot.y || 0;
+    mesh.rotation.z = rot.z || 0;
+    scene.add(mesh);
+    return mesh;
   }
 
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const mat = new THREE.PointsMaterial({
-    size: 1.8,
-    color: 0x818cf8,
+  const ring1 = makeRing(11,  0.04, { x: Math.PI / 2 },           0xc4703a, 0.5);
+  const ring2 = makeRing(13,  0.03, { x: Math.PI / 3, z: 0.4 },   0xd4a547, 0.3);
+  const ring3 = makeRing(15.5,0.025,{ x: Math.PI / 5, y: 1.0 },   0xa0622c, 0.2);
+  const ring4 = makeRing(18,  0.02, { x: -Math.PI / 6, z: -0.8 }, 0xc4703a, 0.12);
+
+  // ── Orbiting dot on ring1 ──
+  function makeOrbitDot(color, size) {
+    const g = new THREE.SphereGeometry(size, 12, 12);
+    const m = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 1.5, roughness: 0, metalness: 0 });
+    return new THREE.Mesh(g, m);
+  }
+  const dot1 = makeOrbitDot(0xf0a060, 0.22);
+  const dot2 = makeOrbitDot(0xd4a547, 0.16);
+  const dot3 = makeOrbitDot(0xe08a50, 0.18);
+  scene.add(dot1, dot2, dot3);
+
+  // ── Particle field ──
+  const PTCOUNT = 600;
+  const ptPos = new Float32Array(PTCOUNT * 3);
+  for (let i = 0; i < PTCOUNT; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const r = 22 + Math.random() * 28;
+    ptPos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
+    ptPos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+    ptPos[i * 3 + 2] = r * Math.cos(phi);
+  }
+  const ptGeo = new THREE.BufferGeometry();
+  ptGeo.setAttribute('position', new THREE.BufferAttribute(ptPos, 3));
+  const ptMat = new THREE.PointsMaterial({
+    color: 0xc4703a,
+    size: 0.18,
     transparent: true,
-    opacity: 0.7,
+    opacity: 0.4,
     sizeAttenuation: true,
   });
-  const points = new THREE.Points(geo, mat);
-  scene.add(points);
+  scene.add(new THREE.Points(ptGeo, ptMat));
 
-  // Lines between close particles
-  const lineMat = new THREE.LineBasicMaterial({ color: 0x818cf8, transparent: true, opacity: 0.08 });
-  const lineGeo = new THREE.BufferGeometry();
-  const linePositions = new Float32Array(COUNT * COUNT * 6); // max connections
-  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-  const linesMesh = new THREE.LineSegments(lineGeo, lineMat);
-  scene.add(linesMesh);
+  // ── Glow halo (additive sprite) ──
+  const haloGeo = new THREE.SphereGeometry(9.5, 32, 32);
+  const haloMat = new THREE.MeshBasicMaterial({
+    color: 0xc4703a,
+    transparent: true,
+    opacity: 0.04,
+    side: THREE.BackSide,
+  });
+  scene.add(new THREE.Mesh(haloGeo, haloMat));
 
-  // Mouse influence
-  let mouseX = 0, mouseY = 0;
-  window.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-    mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+  // ── Mouse parallax ──
+  let mx = 0, my = 0;
+  window.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth - 0.5) * 2;
+    my = -(e.clientY / window.innerHeight - 0.5) * 2;
   }, { passive: true });
 
-  let lineIdx = 0;
-  const DIST_THRESHOLD = 28;
-
+  // ── Animation ──
+  let t = 0;
   function animate() {
     requestAnimationFrame(animate);
+    t += 0.008;
 
-    const pos = geo.attributes.position.array;
+    // Sphere slow rotation
+    sphere.rotation.y = t * 0.2;
+    sphere.rotation.x = t * 0.05;
+    wire.rotation.y = -t * 0.15;
 
-    // Update particle positions
-    for (let i = 0; i < COUNT; i++) {
-      pos[i * 3]     += velocities[i].x;
-      pos[i * 3 + 1] += velocities[i].y;
-      pos[i * 3 + 2] += velocities[i].z;
+    // Rings rotate at different speeds
+    ring1.rotation.z = t * 0.18;
+    ring2.rotation.z = -t * 0.13;
+    ring2.rotation.y = t * 0.06;
+    ring3.rotation.x = Math.PI / 5 + t * 0.09;
+    ring3.rotation.z = t * 0.07;
+    ring4.rotation.y = t * 0.05;
+    ring4.rotation.x = -Math.PI / 6 + t * 0.04;
 
-      // Bounce boundaries
-      if (Math.abs(pos[i * 3]) > 70)     velocities[i].x *= -1;
-      if (Math.abs(pos[i * 3 + 1]) > 50) velocities[i].y *= -1;
-      if (Math.abs(pos[i * 3 + 2]) > 30) velocities[i].z *= -1;
-    }
-    geo.attributes.position.needsUpdate = true;
+    // Orbiting dots
+    const r1 = 11, r2 = 13, r3 = 15.5;
+    dot1.position.set(Math.cos(t * 0.7) * r1, Math.sin(t * 0.7) * r1 * 0.1, Math.sin(t * 0.7) * r1 * 0.99);
+    dot2.position.set(Math.cos(t * 0.5 + 2) * r2 * 0.87, Math.sin(t * 0.5) * r2, Math.cos(t * 0.5 + 1) * r2 * 0.5);
+    dot3.position.set(Math.sin(t * 0.9 + 1) * r3, Math.cos(t * 0.6) * r3 * 0.6, Math.sin(t * 0.8) * r3 * 0.8);
 
-    // Camera slight parallax
-    camera.position.x += (mouseX * 4 - camera.position.x) * 0.02;
-    camera.position.y += (mouseY * 2 - camera.position.y) * 0.02;
+    // Camera parallax (smooth)
+    camera.position.x += (mx * 3 - camera.position.x) * 0.025;
+    camera.position.y += (my * 2 - camera.position.y) * 0.025;
     camera.lookAt(0, 0, 0);
 
-    // Update connecting lines
-    const lp = lineGeo.attributes.position.array;
-    lineIdx = 0;
-    for (let a = 0; a < COUNT; a++) {
-      for (let b = a + 1; b < COUNT; b++) {
-        const dx = pos[a*3] - pos[b*3];
-        const dy = pos[a*3+1] - pos[b*3+1];
-        const dz = pos[a*3+2] - pos[b*3+2];
-        const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
-        if (d < DIST_THRESHOLD && lineIdx < lp.length - 5) {
-          lp[lineIdx++] = pos[a*3];
-          lp[lineIdx++] = pos[a*3+1];
-          lp[lineIdx++] = pos[a*3+2];
-          lp[lineIdx++] = pos[b*3];
-          lp[lineIdx++] = pos[b*3+1];
-          lp[lineIdx++] = pos[b*3+2];
-        }
-      }
-    }
-    // Clear rest
-    for (let i = lineIdx; i < lp.length; i++) lp[i] = 0;
-    lineGeo.attributes.position.needsUpdate = true;
-    lineGeo.setDrawRange(0, lineIdx / 3);
+    // Pulsing light
+    light1.intensity = 80 + Math.sin(t * 1.3) * 12;
 
     renderer.render(scene, camera);
   }
   animate();
 
   window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = W() / H();
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(W(), H());
   });
 }
 
 /* ══════════════════════════════════════════
-   THREE.JS — CTA BACKGROUND (subtle)
+   TERMINAL — funktioniert via IntersectionObserver
+   Startet wenn Demo-Section sichtbar wird
 ══════════════════════════════════════════ */
-const ctaCanvas = document.getElementById('ctaCanvas');
-if (ctaCanvas) {
-  const scene2 = new THREE.Scene();
-  const camera2 = new THREE.PerspectiveCamera(50, ctaCanvas.offsetWidth / ctaCanvas.offsetHeight, 0.1, 100);
-  camera2.position.z = 20;
+const termBody = document.getElementById('termBody');
+if (termBody) {
+  let started = false;
 
-  const renderer2 = new THREE.WebGLRenderer({ canvas: ctaCanvas, antialias: true, alpha: true });
-  renderer2.setSize(ctaCanvas.offsetWidth || 800, ctaCanvas.offsetHeight || 400);
-  renderer2.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer2.setClearColor(0x000000, 0);
-
-  const geo2 = new THREE.TorusGeometry(8, 2.5, 16, 80);
-  const mat2 = new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.08 });
-  const torus = new THREE.Mesh(geo2, mat2);
-  scene2.add(torus);
-
-  const geo3 = new THREE.TorusGeometry(12, 1.5, 12, 60);
-  const mat3 = new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true, transparent: true, opacity: 0.05 });
-  const torus2 = new THREE.Mesh(geo3, mat3);
-  torus2.rotation.x = Math.PI / 3;
-  scene2.add(torus2);
-
-  function animateCta() {
-    requestAnimationFrame(animateCta);
-    torus.rotation.y += 0.003;
-    torus.rotation.x += 0.001;
-    torus2.rotation.z += 0.002;
-    renderer2.render(scene2, camera2);
-  }
-  animateCta();
-
-  const resizeObs = new ResizeObserver(() => {
-    const w = ctaCanvas.offsetWidth || 800;
-    const h = ctaCanvas.offsetHeight || 400;
-    camera2.aspect = w / h;
-    camera2.updateProjectionMatrix();
-    renderer2.setSize(w, h);
-  });
-  resizeObs.observe(ctaCanvas.parentElement);
-}
-
-/* ══════════════════════════════════════════
-   TERMINAL ANIMATION
-══════════════════════════════════════════ */
-const terminalBody = document.getElementById('terminalBody');
-if (terminalBody) {
   const lines = [
-    { delay: 500,  type: 'output', cls: 'term-section', text: '▶ Mağaza bağlantısı kuruluyor...' },
-    { delay: 1200, type: 'output', cls: 'term-success', text: '✓ vintage-atelier bağlandı (1.247 ürün, 3 aktif kampanya)' },
-    { delay: 1800, type: 'output', cls: 'term-section', text: '\n▶ [1/5] PPC Kampanya Analizi başlatılıyor...' },
-    { delay: 2400, type: 'output', cls: 'term-output',  text: '   → Aktif kampanya taranıyor: "Vintage Lamp", "Retro Clock", "Boho Decor"' },
-    { delay: 3200, type: 'output', cls: 'term-warn',    text: '   ⚠ UYARI: "Retro Clock" kampanyasında 47 dönüşümsüz keyword tespit edildi' },
-    { delay: 3800, type: 'output', cls: 'term-error',   text: '   ✗ Aylık israf tahmini: €1.240 — bu keywordler hemen negatife alınmalı' },
-    { delay: 4500, type: 'output', cls: 'term-section', text: '\n▶ [2/5] Keyword Fırsat Analizi...' },
-    { delay: 5200, type: 'output', cls: 'term-output',  text: '   → Rakip mağaza analizi: "arthaus-vintage", "retro-world-de"...' },
-    { delay: 6000, type: 'output', cls: 'term-success', text: '   ✓ 23 yüksek potansiyelli keyword bulundu (rakiplerin hedeflemediği)' },
-    { delay: 6400, type: 'pair',   key: '   En iyi fırsat: ', val: '"vintage table lamp industrial" — 1.200 arama/ay, düşük rekabet' },
-    { delay: 7000, type: 'output', cls: 'term-section', text: '\n▶ [3/5] Listing SEO Skoru...' },
-    { delay: 7600, type: 'pair',   key: '   Ortalama SEO skoru: ', val: '54/100 (hedef: 85+)' },
-    { delay: 8000, type: 'output', cls: 'term-warn',    text: '   ⚠ 34 listingde eksik tag tespit edildi' },
-    { delay: 8500, type: 'output', cls: 'term-warn',    text: '   ⚠ 12 başlık arama amacına uygun değil' },
-    { delay: 9200, type: 'output', cls: 'term-section', text: '\n▶ [4/5] Review Analizi...' },
-    { delay: 9800, type: 'output', cls: 'term-success', text: '   ✓ Ortalama yıldız: 4.7 — güçlü sosyal kanıt' },
-    { delay: 10200,type: 'output', cls: 'term-warn',    text: '   ⚠ Son 30 günde 3 cevapsız negatif review — müdahale şart!' },
-    { delay: 11000,type: 'output', cls: 'term-section', text: '\n▶ [5/5] Rapor oluşturuluyor...' },
-    { delay: 11800,type: 'output', cls: 'term-success', text: '   ✓ Analiz tamamlandı. 47 dakika sürdü (normal: 8-10 saat)' },
-    { delay: 12200,type: 'output', cls: 'term-section', text: '\n══ NEXUS AI ÖZET RAPORU ══' },
-    { delay: 12500,type: 'pair',   key: '   Potansiyel aylık kazanç: ', val: '+€3.840 (PPC tasarruf + yeni keyword trafiği)' },
-    { delay: 13000,type: 'pair',   key: '   Tavsiye edilen otomasyon: ', val: 'PPC Waste Detector + Keyword Gap Finder + Review Bot' },
-    { delay: 13500,type: 'output', cls: 'term-success', text: '\n✓ Rapor e-posta adresinize gönderildi. Demo için iletişime geçin.' },
-    { delay: 14000,type: 'prompt', text: '' },
+    { d: 400,  html: `<div class="tl"><span class="ts">▶ Bağlantı kuruluyor...</span></div>` },
+    { d: 1100, html: `<div class="tl"><span class="tg">✓ vintage-atelier bağlandı &mdash; 1.247 ürün, 3 aktif kampanya</span></div>` },
+    { d: 1700, html: `<div class="tl to" style="color:#6b5f55">──────────────────────────────────────</div>` },
+    { d: 2000, html: `<div class="tl"><span class="ts">▶ [1/4] PPC Kampanya Analizi</span></div>` },
+    { d: 2600, html: `<div class="tl"><span class="to">→ "Vintage Lamp", "Retro Clock", "Boho Decor" taranıyor...</span></div>` },
+    { d: 3300, html: `<div class="tl"><span class="tw">⚠ "Retro Clock": 47 dönüşümsüz keyword bulundu</span></div>` },
+    { d: 3800, html: `<div class="tl"><span class="te">✗ Tahmini aylık israf: <span class="tv">€1.240</span></span></div>` },
+    { d: 4500, html: `<div class="tl"><span class="ts">▶ [2/4] Keyword Fırsat Analizi</span></div>` },
+    { d: 5200, html: `<div class="tl"><span class="to">→ Rakip mağazalar analiz ediliyor...</span></div>` },
+    { d: 6000, html: `<div class="tl"><span class="tg">✓ 23 yüksek potansiyelli keyword keşfedildi</span></div>` },
+    { d: 6500, html: `<div class="tl"><span class="tk">  En iyi: </span><span class="tv">"vintage table lamp industrial"</span><span class="to"> — 1.200 arama/ay, düşük rekabet</span></div>` },
+    { d: 7200, html: `<div class="tl"><span class="ts">▶ [3/4] Listing SEO Skoru</span></div>` },
+    { d: 7800, html: `<div class="tl"><span class="tk">  Ortalama skor: </span><span class="tv">54/100</span><span class="to"> (hedef: 85+)</span></div>` },
+    { d: 8300, html: `<div class="tl"><span class="tw">⚠ 34 listingde eksik tag &bull; 12 başlık uyumsuz</span></div>` },
+    { d: 9000, html: `<div class="tl"><span class="ts">▶ [4/4] Review Analizi</span></div>` },
+    { d: 9600, html: `<div class="tl"><span class="tg">✓ Ortalama yıldız: 4.7 &nbsp;|&nbsp; <span class="tw">3 cevapsız negatif review!</span></span></div>` },
+    { d: 10400,html: `<div class="tl to" style="color:#6b5f55">──────────────────────────────────────</div>` },
+    { d: 10700,html: `<div class="tl"><span class="ts">■ RAPOR ÖZETI</span></div>` },
+    { d: 11200,html: `<div class="tl"><span class="tk">  Aylık potansiyel kazanç: </span><span class="tg">+€3.840</span></div>` },
+    { d: 11700,html: `<div class="tl"><span class="tk">  Önerilen otomasyon: </span><span class="tv">PPC Waste + Keyword Gap + Review Bot</span></div>` },
+    { d: 12300,html: `<div class="tl"><span class="tg">✓ Analiz tamamlandı &mdash; rapor e-postanıza gönderildi</span></div>` },
+    { d: 12800,html: `<div class="tl"><span class="tp">$</span><span class="cursor"></span></div>` },
   ];
 
-  function addLine(html, autoscroll = true) {
-    const div = document.createElement('div');
-    div.className = 'term-line';
-    div.innerHTML = html;
-    terminalBody.appendChild(div);
-    if (autoscroll) terminalBody.scrollTop = terminalBody.scrollHeight;
-  }
-
-  // Start terminal only when in view
-  const termObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        termObs.disconnect();
-        lines.forEach(l => {
-          setTimeout(() => {
-            if (l.type === 'output') {
-              addLine(`<span class="${l.cls}">${escapeHtml(l.text)}</span>`);
-            } else if (l.type === 'pair') {
-              addLine(`<span class="term-key">${escapeHtml(l.key)}</span><span class="term-value">${escapeHtml(l.val)}</span>`);
-            } else if (l.type === 'prompt') {
-              addLine(`<span class="prompt">$</span><span class="cursor"></span>`);
-            }
-          }, l.delay);
-        });
-      }
-    });
-  }, { threshold: 0.3 });
-  termObs.observe(terminalBody);
-}
-
-function escapeHtml(t) {
-  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-/* ══════════════════════════════════════════
-   GSAP SCROLL ANIMATIONS
-══════════════════════════════════════════ */
-if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Bento cards reveal (animate FROM hidden)
-  gsap.utils.toArray('.bento-card').forEach((card, i) => {
-    const delay = parseFloat(card.dataset.delay || 0);
-    gsap.from(card, {
-      opacity: 0,
-      y: 30,
-      duration: 0.7,
-      ease: 'power2.out',
-      delay,
-      scrollTrigger: {
-        trigger: card,
-        start: 'top 92%',
-        toggleActions: 'play none none none',
-      }
-    });
-  });
-
-  // Bar fills
-  gsap.utils.toArray('.bar-fill').forEach(bar => {
-    ScrollTrigger.create({
-      trigger: bar,
-      start: 'top 90%',
-      onEnter: () => bar.classList.add('animated'),
-    });
-  });
-
-  // Count-up numbers
-  function countUp(el) {
-    const target = parseInt(el.dataset.target, 10);
-    gsap.fromTo({ val: 0 }, { val: target }, {
-      duration: 2,
-      ease: 'power2.out',
-      onUpdate: function() {
-        el.textContent = Math.round(this.targets()[0].val);
-      },
+  function startTerminal() {
+    if (started) return;
+    started = true;
+    lines.forEach(l => {
+      setTimeout(() => {
+        const div = document.createElement('div');
+        div.innerHTML = l.html;
+        termBody.appendChild(div.firstChild || div);
+        termBody.scrollTop = termBody.scrollHeight;
+      }, l.d);
     });
   }
 
-  // Hero stat counters (on load, after short delay)
-  setTimeout(() => {
-    document.querySelectorAll('.stat-num').forEach(countUp);
-  }, 800);
-
-  // Bento count-up on scroll
-  gsap.utils.toArray('.count-up').forEach(el => {
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => countUp(el),
-    });
-  });
-
-  // Section headers fade
-  gsap.utils.toArray('.section-header').forEach(el => {
-    gsap.from(el, {
-      opacity: 0, y: 24,
-      duration: 0.8,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 85%',
-        toggleActions: 'play none none none',
-      }
-    });
-  });
+  // Start when demo section enters viewport
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { startTerminal(); obs.disconnect(); } });
+  }, { threshold: 0.25 });
+  obs.observe(termBody.closest('section') || termBody);
 }
 
 /* ══════════════════════════════════════════
    PLATFORM TABS
 ══════════════════════════════════════════ */
-const tabBtns = document.querySelectorAll('.tab-btn');
-const tabContents = document.querySelectorAll('.tab-content');
-
-tabBtns.forEach(btn => {
+document.querySelectorAll('.tab').forEach(btn => {
   btn.addEventListener('click', () => {
     const target = btn.dataset.tab;
-
-    tabBtns.forEach(b => {
+    document.querySelectorAll('.tab').forEach(b => {
       b.classList.remove('active');
       b.setAttribute('aria-selected', 'false');
     });
-    tabContents.forEach(c => {
-      c.classList.remove('active');
-      c.hidden = true;
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      p.classList.remove('active');
+      p.hidden = true;
     });
-
     btn.classList.add('active');
     btn.setAttribute('aria-selected', 'true');
-    const panel = document.getElementById(`tab-${target}`);
-    if (panel) {
-      panel.classList.add('active');
-      panel.hidden = false;
-    }
+    const panel = document.getElementById(`panel-${target}`);
+    if (panel) { panel.classList.add('active'); panel.hidden = false; }
   });
 });
 
 /* ══════════════════════════════════════════
-   FORM SUBMIT (UX only — no backend)
+   COUNT-UP NUMBERS
 ══════════════════════════════════════════ */
-const ctaForm = document.getElementById('ctaForm');
-if (ctaForm) {
-  ctaForm.addEventListener('submit', (e) => {
+function countUp(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const duration = 2000;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(ease * target);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Hero counters — start after 1s
+setTimeout(() => {
+  document.querySelectorAll('.count-hero').forEach(countUp);
+}, 1000);
+
+// Section counters — on scroll
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.count-up').forEach(countUp);
+      countObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stats-grid').forEach(el => countObs.observe(el));
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const delay = parseFloat(e.target.dataset.delay || 0);
+      setTimeout(() => e.target.classList.add('visible'), delay * 1000);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ══════════════════════════════════════════
+   FORM SUBMIT
+══════════════════════════════════════════ */
+const form = document.getElementById('ctaForm');
+if (form) {
+  form.addEventListener('submit', e => {
     e.preventDefault();
-    const btn = ctaForm.querySelector('[type="submit"]');
-    const original = btn.innerHTML;
-    btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Gönderildi! 24 saat içinde dönüş yapılacak.`;
+    const btn = form.querySelector('button[type="submit"]');
+    btn.textContent = '✓ Gönderildi — 24 saat içinde dönüş yapacağız!';
     btn.disabled = true;
     btn.style.opacity = '0.8';
     setTimeout(() => {
-      btn.innerHTML = original;
+      btn.textContent = 'Ücretsiz Analiz İste';
       btn.disabled = false;
       btn.style.opacity = '';
-      ctaForm.reset();
+      form.reset();
     }, 5000);
   });
 }
-
-/* ══════════════════════════════════════════
-   MOBILE NAV BURGER (basic toggle)
-══════════════════════════════════════════ */
-const burger = document.getElementById('navBurger');
-const navLinks = document.querySelector('.nav-links');
-if (burger && navLinks) {
-  burger.addEventListener('click', () => {
-    const open = navLinks.style.display === 'flex';
-    navLinks.style.display = open ? '' : 'flex';
-    navLinks.style.flexDirection = 'column';
-    navLinks.style.position = 'absolute';
-    navLinks.style.top = '70px';
-    navLinks.style.left = '0';
-    navLinks.style.right = '0';
-    navLinks.style.background = 'var(--bg)';
-    navLinks.style.padding = 'var(--space-6)';
-    navLinks.style.borderBottom = '1px solid var(--border)';
-  });
-}
-
-// Re-init Lucide icons after dynamic content
-if (typeof lucide !== 'undefined') lucide.createIcons();
