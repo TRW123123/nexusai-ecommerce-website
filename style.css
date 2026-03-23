@@ -280,16 +280,25 @@ input, select, textarea { font: inherit; color: inherit; }
   margin-bottom: var(--space-16);
 }
 .hero-proof {
-  display: inline-flex;
+  display: inline-grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
   align-items: center;
-  gap: var(--space-8);
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: var(--space-6);
   background: rgba(26,22,18,0.6);
   border: 1px solid var(--border);
   backdrop-filter: blur(16px);
   border-radius: var(--radius-2xl);
   padding: var(--space-5) var(--space-10);
+  max-width: 480px;
+  width: 100%;
+}
+@media (max-width: 480px) {
+  .hero-proof {
+    grid-template-columns: 1fr 1fr;
+    padding: var(--space-5) var(--space-6);
+  }
+  .proof-sep { display: none; }
+  .hero-proof .proof-item:last-child { grid-column: 1 / -1; }
 }
 .proof-item { text-align: center; }
 .proof-item strong {
@@ -517,9 +526,10 @@ input, select, textarea { font: inherit; color: inherit; }
   flex-direction: column;
   gap: var(--space-3);
   position: relative;
-  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   animation: card-in 0.4s ease forwards;
   opacity: 0;
+  cursor: default;
 }
 @keyframes card-in {
   from { opacity: 0; transform: translateY(12px); }
@@ -532,15 +542,25 @@ input, select, textarea { font: inherit; color: inherit; }
 .card:nth-child(5) { animation-delay: 0.20s; }
 .card:nth-child(6) { animation-delay: 0.24s; }
 .card:hover {
-  border-color: var(--border);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  border-color: var(--cognac);
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 1px rgba(196,112,58,0.2),
+    0 8px 32px rgba(196,112,58,0.12),
+    0 20px 60px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, var(--ink-2), rgba(196,112,58,0.05));
 }
 .card.hot {
   border-color: rgba(196,112,58,0.25);
   background: linear-gradient(135deg, var(--ink-2), rgba(196,112,58,0.04));
 }
-.card.hot:hover { border-color: rgba(196,112,58,0.4); box-shadow: 0 12px 40px rgba(196,112,58,0.1); }
+.card.hot:hover {
+  border-color: var(--cognac-bright);
+  box-shadow:
+    0 0 0 1px rgba(212,165,71,0.3),
+    0 8px 32px rgba(212,165,71,0.15),
+    0 20px 60px rgba(0,0,0,0.3);
+}
 .card-score {
   font-family: var(--font-mono);
   font-size: var(--text-xs);

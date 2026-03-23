@@ -268,20 +268,27 @@ function countUp(el) {
   requestAnimationFrame(step);
 }
 
-// Hero counters — start after 1s
-setTimeout(() => {
-  document.querySelectorAll('.count-hero').forEach(countUp);
-}, 1000);
+// Hero counters — start after fonts + 3D load
+function startHeroCounters() {
+  document.querySelectorAll('.count-hero').forEach(el => {
+    if (el.textContent === '0') countUp(el);
+  });
+}
+// Try immediately, then retry to catch race condition
+setTimeout(startHeroCounters, 800);
+setTimeout(startHeroCounters, 1800);
 
 // Section counters — on scroll
 const countObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.querySelectorAll('.count-up').forEach(countUp);
+      e.target.querySelectorAll('.count-up').forEach(el => {
+        if (el.textContent === '0') countUp(el);
+      });
       countObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.3 });
+}, { threshold: 0.2 });
 document.querySelectorAll('.stats-grid').forEach(el => countObs.observe(el));
 
 /* ══════════════════════════════════════════
