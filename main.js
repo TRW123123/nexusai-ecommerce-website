@@ -261,6 +261,20 @@ document.querySelectorAll('.tab').forEach(btn => {
   });
 });
 
+document.querySelectorAll('.show-all-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const panel = e.target.closest('.tab-panel');
+    panel.querySelectorAll('.card.extra').forEach(card => card.classList.toggle('hidden-card'));
+    panel.querySelectorAll('.card.extra').forEach(card => card.classList.toggle('visible'));
+    
+    if (btn.innerHTML.includes('Tüm Özellikleri Gör')) {
+      btn.innerHTML = 'Daha Az Göster <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="transform: rotate(180deg)"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+    } else {
+      btn.innerHTML = 'Tüm Özellikleri Gör <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+    }
+  });
+});
+
 /* ══════════════════════════════════════════
    COUNT-UP NUMBERS
 ══════════════════════════════════════════ */

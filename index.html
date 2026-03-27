@@ -115,6 +115,20 @@
   </div>
 </section>
 
+<!-- SOCIAL PROOF -->
+<div class="trust-bar">
+  <div class="container">
+    <p class="trust-label">Entegre Çalıştığımız Ekosistemler</p>
+    <div class="trust-logos">
+      <span>Shopify Partners</span>
+      <span>Amazon Seller Central</span>
+      <span>Etsy API Developer</span>
+      <span>Klaviyo</span>
+      <span>Meta Business</span>
+    </div>
+  </div>
+</div>
+
 <!-- ABOUT STRIP -->
 <div class="about-strip">
   <div class="strip-inner">
@@ -219,24 +233,27 @@
           <p>AI ile ürün görselleri ve mockup üretir. Tıklanmayan thumbnail'ları dönüştürür.</p>
           <span class="card-tag">Dönüşüm</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">55</div>
           <h4>Customer Support AI</h4>
           <p>Mesajları analiz eder, otomatik cevap üretir. Geç yanıttan kaynaklanan satış kaybını önler.</p>
           <span class="card-tag">Müşteri Deneyimi</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">55</div>
           <h4>Review Hatırlatma Otomasyonu</h4>
           <p>Teslimden sonra otomatik review talep mesajı. Sosyal kanıtı inşa eder.</p>
           <span class="card-tag">Marka İtibarı</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">55</div>
           <h4>AI Trend Explorer</h4>
           <p>Günlük ve haftalık trend ürünleri analiz eder. Hangi ürünlerin öne çıkacağını tahmin eder.</p>
           <span class="card-tag">Strateji</span>
         </div>
+      </div>
+      <div class="tab-actions">
+        <button type="button" class="btn-text show-all-btn">Tüm Özellikleri Gör <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       </div>
     </div>
 
@@ -261,24 +278,27 @@
           <p>Düşük yıldız gelince anında bildirim. Marka itibarını koruyan proaktif kalkan.</p>
           <span class="card-tag">İtibar Yönetimi</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">98</div>
           <h4>Keyword Opportunity Gap Finder</h4>
           <p>Rakiplerin gözden kaçırdığı yüksek arama hacmine sahip stratejik anahtar kelimeleri tespit eder.</p>
           <span class="card-tag">Organik Görünürlük</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">97</div>
           <h4>Refund Sebep Analiz Botu</h4>
           <p>İadelerin %60'ı aynı hatadan mı? AI bunu anında bulur ve çözer.</p>
           <span class="card-tag">Kalite</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">95</div>
           <h4>Stock Risk Analyzer</h4>
           <p>Stok azalınca reklamları yavaşlatıp sipariş alarmı verir.</p>
           <span class="card-tag">Operasyon</span>
         </div>
+      </div>
+      <div class="tab-actions">
+        <button type="button" class="btn-text show-all-btn">Tüm Özellikleri Gör <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       </div>
     </div>
 
@@ -303,24 +323,27 @@
           <p>Sepet terk, hoşgeldin, upsell akışları. Klaviyo veya n8n entegrasyonu.</p>
           <span class="card-tag">Gelir Artışı</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">98</div>
           <h4>WhatsApp Support Bot</h4>
           <p>Resmi WhatsApp API ile müşteri desteğini cebe taşır.</p>
           <span class="card-tag">Müşteri Deneyimi</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">96</div>
           <h4>Order Tracking AI Bot</h4>
           <p>"Siparişim nerede?" sorularını kargo API ile anında yanıtlar. Destek yükünü %60 azaltır.</p>
           <span class="card-tag">Tasarruf</span>
         </div>
-        <div class="card">
+        <div class="card extra hidden-card">
           <div class="card-score">95</div>
           <h4>VIP Customer Detector</h4>
           <p>En çok harcayan %5'lik kitleyi tespit eder, özel lansman erişimi gönderir.</p>
           <span class="card-tag">Sadakat</span>
         </div>
+      </div>
+      <div class="tab-actions">
+        <button type="button" class="btn-text show-all-btn">Tüm Özellikleri Gör <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       </div>
     </div>
   </div>
@@ -369,26 +392,41 @@
 
       <form class="cta-form" id="ctaForm" novalidate>
         <div class="form-row">
-          <input type="text" placeholder="Adınız Soyadınız" id="nameInput" required autocomplete="name">
-          <input type="email" placeholder="E-posta adresiniz" id="emailInput" required autocomplete="email">
+          <div class="form-group">
+            <input type="text" id="nameInput" required autocomplete="name" placeholder=" ">
+            <label for="nameInput">Adınız Soyadınız</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="emailInput" required autocomplete="email" placeholder=" ">
+            <label for="emailInput">E-posta adresiniz</label>
+          </div>
         </div>
         <div class="form-row">
-          <select id="platformSel" required>
-            <option value="" disabled selected>Bağlı Olduğunuz Platform</option>
-            <option>Etsy</option>
-            <option>Amazon</option>
-            <option>Shopify</option>
-            <option>Birden fazla</option>
-          </select>
-          <select id="budgetSel">
-            <option value="" disabled selected>Aylık reklam bütçesi</option>
-            <option>€1.000'den az</option>
-            <option>€1.000 – €5.000</option>
-            <option>€5.000 – €20.000</option>
-            <option>€20.000+</option>
-          </select>
+          <div class="form-group">
+            <select id="platformSel" required>
+              <option value="" disabled selected hidden></option>
+              <option>Etsy</option>
+              <option>Amazon</option>
+              <option>Shopify</option>
+              <option>Birden fazla</option>
+            </select>
+            <label for="platformSel">Bağlı Olduğunuz Platform</label>
+          </div>
+          <div class="form-group">
+            <select id="budgetSel" required>
+              <option value="" disabled selected hidden></option>
+              <option>€1.000'den az</option>
+              <option>€1.000 – €5.000</option>
+              <option>€5.000 – €20.000</option>
+              <option>€20.000+</option>
+            </select>
+            <label for="budgetSel">Aylık reklam bütçesi</label>
+          </div>
         </div>
-        <textarea id="sorunInput" placeholder="Karşılaştığınız en büyük operasyonel zorluk nedir? (Lütfen açıklayın)" rows="3" required></textarea>
+        <div class="form-group">
+          <textarea id="sorunInput" rows="3" required placeholder=" "></textarea>
+          <label for="sorunInput">Karşılaştığınız en büyük operasyonel zorluk nedir? (Lütfen açıklayın)</label>
+        </div>
         <button type="submit" class="btn-primary btn-full">Ücretsiz Analiz Talep Edin</button>
         <p class="form-note">Spam yapılmaz · Kredi kartı gerekmez · 24 saat içinde yanıt</p>
       </form>
