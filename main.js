@@ -214,6 +214,9 @@ if (termBody) {
   function startTerminal() {
     if (started) return;
     started = true;
+    termBody.innerHTML = '';
+    
+    let endDelay = 0;
     lines.forEach(l => {
       setTimeout(() => {
         const div = document.createElement('div');
@@ -221,7 +224,13 @@ if (termBody) {
         termBody.appendChild(div.firstChild || div);
         termBody.scrollTop = termBody.scrollHeight;
       }, l.d);
+      endDelay = Math.max(endDelay, l.d);
     });
+
+    setTimeout(() => {
+      started = false;
+      startTerminal();
+    }, endDelay + 4000);
   }
 
   // Start when demo section enters viewport

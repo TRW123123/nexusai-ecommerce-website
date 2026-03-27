@@ -663,7 +663,8 @@ input, select, textarea { font: inherit; color: inherit; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
 @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
 .cta-form input,
-.cta-form select {
+.cta-form select,
+.cta-form textarea {
   background: var(--ink);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
@@ -672,11 +673,15 @@ input, select, textarea { font: inherit; color: inherit; }
   color: var(--creme);
   width: 100%;
   transition: border-color var(--transition), box-shadow var(--transition);
+  font-family: inherit;
+  resize: vertical;
 }
-.cta-form input::placeholder { color: var(--creme-faint); }
+.cta-form input::placeholder,
+.cta-form textarea::placeholder { color: var(--creme-faint); }
 .cta-form select { cursor: pointer; appearance: none; }
 .cta-form input:focus,
-.cta-form select:focus {
+.cta-form select:focus,
+.cta-form textarea:focus {
   outline: none;
   border-color: var(--cognac);
   box-shadow: 0 0 0 3px var(--cognac-dim);
