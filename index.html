@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="tr" data-theme="dark">
 <head>
-<!--
-   ______                            __
-  / ____/___  ____ ___  ____  __  __/ /____  _____
- / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
-/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
-\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
-                    /_/
-        Created with Perplexity Computer
-        https://www.perplexity.ai/computer
--->
-<meta name="generator" content="Perplexity Computer">
-<meta name="author" content="Perplexity Computer">
-<meta property="og:see_also" content="https://www.perplexity.ai/computer">
-<link rel="author" href="https://www.perplexity.ai/computer">
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Private AI Agency — E-Ticaret için Yapay Zeka Otomasyonu</title>
 <meta name="description" content="Etsy, Amazon ve Shopify mağazanızı yapay zeka ile otomatikleştirin. PPC optimizasyonu, listing yönetimi, müşteri desteği.">
+<meta name="generator" content="Private AI Agency">
+<meta name="author" content="Private AI Agency">
+
+<!-- SEO & Social Meta Tags -->
+<link rel="canonical" href="https://eticaretturkiye.netlify.app/">
+<meta property="og:title" content="Private AI Agency — E-Ticaret için Yapay Zeka Otomasyonu">
+<meta property="og:description" content="Etsy, Amazon ve Shopify mağazanızı yapay zeka ile otomatikleştirin. PPC optimizasyonu, listing yönetimi, müşteri desteği.">
+<meta property="og:url" content="https://eticaretturkiye.netlify.app/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,8 +29,15 @@
 }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Private AI Agency",
+  "url": "https://eticaretturkiye.netlify.app/",
+  "description": "E-Ticaret işletmeleri için yüksek dönüşümlü yapay zeka otomasyon sistemleri."
+}
+</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -53,6 +56,11 @@
       <span>Private AI Agency</span>
     </a>
 
+    <button type="button" class="mobile-nav-toggle" aria-label="Menüyü Aç" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="icon-menu">
+        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
     <ul class="nav-links" role="list">
       <li><a href="#hizmetler">Hizmetler</a></li>
       <li><a href="#platformlar">Platformlar</a></li>
@@ -390,20 +398,21 @@
       <h2>İlk Analiziniz Bizden</h2>
       <p>Operasyonunuzda nerede bütçe ve zaman kaybettiğinizi haritalandıralım. 24 saat içinde detaylı bir analiz ile dönüş yapacağız.</p>
 
-      <form class="cta-form" id="ctaForm" novalidate>
+      <form class="cta-form" id="ctaForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <p class="hidden" style="display:none;"><label>Don’t fill this out if you're human: <input name="bot-field" /></label></p>
         <div class="form-row">
           <div class="form-group">
-            <input type="text" id="nameInput" required autocomplete="name" placeholder=" ">
+            <input type="text" id="nameInput" name="isim" required autocomplete="name" placeholder=" ">
             <label for="nameInput">Adınız Soyadınız</label>
           </div>
           <div class="form-group">
-            <input type="email" id="emailInput" required autocomplete="email" placeholder=" ">
+            <input type="email" id="emailInput" name="email" required autocomplete="email" placeholder=" ">
             <label for="emailInput">E-posta adresiniz</label>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <select id="platformSel" required>
+            <select id="platformSel" name="platform" required>
               <option value="" disabled selected hidden></option>
               <option>Etsy</option>
               <option>Amazon</option>
@@ -413,7 +422,7 @@
             <label for="platformSel">Bağlı Olduğunuz Platform</label>
           </div>
           <div class="form-group">
-            <select id="budgetSel" required>
+            <select id="budgetSel" name="butce" required>
               <option value="" disabled selected hidden></option>
               <option>€1.000'den az</option>
               <option>€1.000 – €5.000</option>
@@ -424,7 +433,7 @@
           </div>
         </div>
         <div class="form-group">
-          <textarea id="sorunInput" rows="3" required placeholder=" "></textarea>
+          <textarea id="sorunInput" name="sorun" rows="3" required placeholder=" "></textarea>
           <label for="sorunInput">Karşılaştığınız en büyük operasyonel zorluk nedir? (Lütfen açıklayın)</label>
         </div>
         <button type="submit" class="btn-primary btn-full">Ücretsiz Analiz Talep Edin</button>
@@ -457,7 +466,6 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 Private AI Agency. Tüm hakları saklıdır.</p>
-      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
     </div>
   </div>
 </footer>

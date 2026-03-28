@@ -9,6 +9,20 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ══════════════════════════════════════════
+   MOBILE NAV TOGGLE
+══════════════════════════════════════════ */
+const navToggle = document.querySelector('.mobile-nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('active'));
+  });
+}
+
+/* ══════════════════════════════════════════
    3D HERO — Glowing Sphere + Orbit Rings
    Große zentrale 3D Animation
 ══════════════════════════════════════════ */
@@ -297,9 +311,21 @@ function startHeroCounters() {
     if (el.textContent === '0') countUp(el);
   });
 }
-// Try immediately, then retry to catch race condition
-setTimeout(startHeroCounters, 800);
-setTimeout(startHeroCounters, 1800);
+// Start after DOM and fonts are ready to prevent zero-width calculation race condition
+Promise.all([
+  document.fonts ? document.fonts.ready : Promise.resolve(),
+  new Promise(res => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', res);
+    } else {
+      res();
+    }
+  })
+]).then(() => {
+  requestAnimationFrame(() => {
+    setTimeout(startHeroCounters, 100);
+  });
+});
 
 // Section counters — on scroll
 const countObs = new IntersectionObserver(entries => {
@@ -329,21 +355,39 @@ const revealObs = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 /* ══════════════════════════════════════════
-   FORM SUBMIT
+   FORM SUBMIT (NETLIFY AJAX)
 ══════════════════════════════════════════ */
 const form = document.getElementById('ctaForm');
 if (form) {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
-    btn.textContent = '✓ Gönderildi — 24 saat içinde dönüş yapacağız!';
+    const originalBtnText = btn.textContent;
+    btn.textContent = 'Gönderiliyor...';
     btn.disabled = true;
     btn.style.opacity = '0.8';
-    setTimeout(() => {
-      btn.textContent = 'Ücretsiz Analiz İste';
+
+    const formData = new FormData(form);
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
+    })
+    .then(() => {
+      btn.textContent = '✓ Gönderildi — 24 saat içinde dönüş yapacağız!';
+      setTimeout(() => {
+        btn.textContent = originalBtnText;
+        btn.disabled = false;
+        btn.style.opacity = '';
+        form.reset();
+      }, 5000);
+    })
+    .catch((error) => {
+      console.error(error);
+      alert('Bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+      btn.textContent = originalBtnText;
       btn.disabled = false;
       btn.style.opacity = '';
-      form.reset();
-    }, 5000);
+    });
   });
 }
