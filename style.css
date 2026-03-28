@@ -801,6 +801,47 @@ input, select, textarea { font: inherit; color: inherit; }
 .footer-bottom a { color: var(--creme-faint); text-decoration: underline; text-underline-offset: 3px; }
 .footer-bottom a:hover { color: var(--creme-muted); }
 
+.footer-contact {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: var(--space-2);
+}
+.footer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+  border: 1px solid var(--border-subtle);
+}
+.footer-btn:hover {
+  transform: translateY(-2px);
+}
+.whatsapp-btn {
+  background: rgba(37, 211, 102, 0.1);
+  color: #25D366;
+  border-color: rgba(37, 211, 102, 0.2);
+}
+.whatsapp-btn:hover {
+  background: rgba(37, 211, 102, 0.2);
+  border-color: #25D366;
+}
+.email-btn {
+  background: rgba(196, 112, 58, 0.1);
+  color: var(--cognac);
+  border-color: rgba(196, 112, 58, 0.2);
+}
+.email-btn:hover {
+  background: rgba(196, 112, 58, 0.2);
+  border-color: var(--cognac);
+}
+
 /* ══ SCROLL REVEAL ══ */
 .reveal {
   opacity: 0;
