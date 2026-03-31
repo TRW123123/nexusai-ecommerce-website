@@ -731,25 +731,26 @@ input, select, textarea { font: inherit; color: inherit; }
   font-size: var(--text-sm);
   transition: all 0.2s ease;
   pointer-events: none;
-  background: var(--ink);
-  padding: 0 4px;
+  background: var(--ink-2); /* Matches .cta-wrap background */
+  padding: 0 6px;
+  border-radius: 4px;
 }
 .cta-form input:focus ~ label,
 .cta-form input:not(:placeholder-shown) ~ label,
 .cta-form select:focus ~ label,
-.cta-form select:valid ~ label,
+.cta-form select:not([value=""]):not(:disabled) ~ label,
 .cta-form textarea:focus ~ label,
 .cta-form textarea:not(:placeholder-shown) ~ label {
-  top: -8px;
-  left: 12px;
+  top: -10px;
+  left: 10px;
   font-size: 0.75rem;
-  color: var(--cognac-bright);
+  color: var(--gold); /* More prominent highlight */
 }
 .cta-form input,
 .cta-form select,
 .cta-form textarea {
-  background: var(--ink);
-  border: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.2); /* Slightly darker for contrast */
+  border: 1px solid rgba(196, 112, 58, 0.2); /* Subtle theme border */
   border-radius: var(--radius-lg);
   padding: var(--space-4);
   font-size: var(--text-sm);
@@ -759,6 +760,10 @@ input, select, textarea { font: inherit; color: inherit; }
   font-family: inherit;
   resize: vertical;
 }
+.cta-form textarea {
+  min-height: 120px;
+  line-height: 1.5;
+}
 .cta-form input::placeholder,
 .cta-form textarea::placeholder { color: transparent; }
 .cta-form select { cursor: pointer; appearance: none; }
@@ -766,8 +771,8 @@ input, select, textarea { font: inherit; color: inherit; }
 .cta-form select:focus,
 .cta-form textarea:focus {
   outline: none;
-  border-color: var(--cognac);
-  box-shadow: 0 0 0 3px var(--cognac-dim);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(212, 165, 71, 0.1);
 }
 .form-note { font-size: var(--text-xs); color: var(--creme-faint); margin-top: var(--space-2); }
 
